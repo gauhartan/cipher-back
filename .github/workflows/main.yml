@@ -1,9 +1,10 @@
-name: Deploy cipher-backend to GitHub Pages
+name: Java backend CI
 
 on:
   push:
-    branches: [ "master" ]
-
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main " ]
 
 jobs:
   build:
@@ -17,12 +18,5 @@ jobs:
           java-version: '23'
           distribution: 'temurin'
           cache: maven
-      - name: Build
-        run: mvn clean install
       - name: Run tests
         run: mvn test
-
-      - name: Publish to GitHub Packages Apache Maven
-        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
